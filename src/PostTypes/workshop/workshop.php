@@ -144,6 +144,21 @@ class WorkshopPostType {
         }
     }
 
+    public function render_page_registrations() {
+        require( plugin_dir_path( __FILE__ ) . 'partials/registration-list.php' );
+    }
+
+    public function add_menu() {
+        add_submenu_page(
+            'edit.php?post_type=' . $this->slug,
+            'Anmeldungen',
+            'Anmeldungen',
+            'create_users',
+            'ms_events_registrations',
+            array( $this, 'render_page_registrations')
+        );
+    }
+
     public function register () {
         add_action( 'init', array($this, 'register_posttype') );
 
@@ -152,6 +167,11 @@ class WorkshopPostType {
 
         // add_filter('manage_workshop_columns', array($this, 'list_columns_head'));
         // add_action('manage_posts_custom_column',  array($this, 'list_columns_content'), 10, 2);
+
+
+        // subpages
+        add_action( 'admin_menu', array($this, 'add_menu') );
+
 
     }
 

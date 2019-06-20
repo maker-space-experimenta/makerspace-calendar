@@ -31,7 +31,7 @@ if ( ! class_exists( 'Makerspace_Calendar' ) ) {
         }
 
         function __construct() {
-            // add_action('admin_enqueue_scripts', array($this, 'load_styles') );
+            add_action('admin_enqueue_scripts', array($this, 'load_styles') );
 
             require_once plugin_dir_path( __FILE__ ) . '/PostTypes/workshop/workshop.php';
             $cal = new WorkshopPostType();
@@ -61,8 +61,8 @@ if ( ! class_exists( 'Makerspace_Calendar' ) ) {
         }
 
         public function load_styles() {
-            wp_enqueue_style('boot_css', plugins_url('assets/styles/main.css',__FILE__ ));
+            wp_enqueue_style('boot_css', plugins_url('assets/style.css',__FILE__ ));
+            wp_enqueue_script('jquery_datatables', plugins_url('assets/js/jquery.dataTables.min.js' ) );
         }
     }
-
 }
