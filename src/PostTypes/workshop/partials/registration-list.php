@@ -8,6 +8,24 @@ $posts = get_posts(array(
     'meta_key'          => 'workshop_start',
     'order'             => 'ASC'
 ));
+
+
+usort($posts, function ($a, $b) {
+
+    $start_date_a = get_post_meta($a->ID, 'workshop_start', true);
+    $start_date_b = get_post_meta($b->ID, 'workshop_start', true);
+
+    if ($start_date_a->format('Y-m-d') > $start_date_b->format('Y-m-d')) {
+        return 1;
+    }
+
+    if ($start_date_a->format('Y-m-d') < $start_date_b->format('Y-m-d')) {
+        return -1;
+    }
+
+    return 0;
+});
+
 ?>
 
 
