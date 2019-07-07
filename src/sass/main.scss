@@ -1,6 +1,17 @@
-
-
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 @import "./jquery-datatables.css";
 @import "./bootstrap-datatables.css";
+
+h1.title {
+  font-size: 23px;
+  font-weight: 400;
+  margin: 0;
+  margin-right: 0px;
+  padding: 9px 0 4px 0;
+  line-height: 1.3;
+}
+
+.card {
+  max-width: none;
+}
