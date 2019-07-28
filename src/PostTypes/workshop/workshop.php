@@ -64,6 +64,16 @@ class WorkshopPostType {
             'menu_icon'		  => plugin_dir_url( __FILE__ ) . '../../menu-icon.png',
             'supports'    => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' ),
             'taxonomies'  => array(),
+            'capabilities' => array(
+                'edit_post'          => 'makerspace_calendar_edit_workshops', 
+                'read_post'          => 'makerspace_calendar_read_workshops', 
+                'delete_post'        => 'makerspace_calendar_delete_workshops', 
+                'edit_posts'         => 'makerspace_calendar_edit_workshops', 
+                'edit_others_posts'  => 'makerspace_calendar_edit_workshops', 
+                'publish_posts'      => 'makerspace_calendar_publish_workshops',       
+                'read_private_posts' => 'makerspace_calendar_read_workshops', 
+                'create_posts'       => 'makerspace_calendar_edit_workshops', 
+              ),
         );
 
         register_post_type( $this->slug, $args );
@@ -153,14 +163,29 @@ class WorkshopPostType {
             'edit.php?post_type=' . $this->slug,
             'Anmeldungen',
             'Anmeldungen',
-            'create_users',
+            'makerspace_calendar_read_registrations',
             'ms_events_registrations',
             array( $this, 'render_page_registrations')
         );
     }
 
+
+
+    public function add_caps() {
+        $role = get_role( 'editor' );
+        $role->add_cap( 'makerspace_calendar_read_workshops', true ); 
+        $role->add_cap( 'makerspace_calendar_edit_workshops', true ); 
+        $role->add_cap( 'makerspace_calendar_delete_workshops', true ); 
+        $role->add_cap( 'makerspace_calendar_publish_workshops', true ); 
+        $role->add_cap( 'makerspace_calendar_read_registrations', true ); 
+
+        // $role = add_role('foobar', 'Foo Bar', array());
+        // $role->add_cap('foo_bar_cap');
+    }
+
     public function register () {
-        add_action( 'init', array($this, 'register_posttype') );
+        add_action( 'init', array( $this, 'register_posttype') );
+        add_action( 'init', array( $this, 'add_caps') );
 
         add_action( 'add_meta_boxes', array( $this, 'add_metaboxes' ) );
         add_action( 'init', array( $this, 'save_custom_meta_box') );
