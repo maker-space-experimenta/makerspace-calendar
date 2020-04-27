@@ -81,6 +81,9 @@ class WorkshopPostType {
 
     public function save_custom_meta_box ()
     {
+        if (!isset($_POST["post_ID"]))
+            return;
+
         $pid = $_POST["post_ID"];
 
         if ( $pid == NULL )
